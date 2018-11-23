@@ -1,4 +1,9 @@
 INCLUDE libs/Irvine32.inc
+INCLUDE libs/Win32.inc
+include libs/user32.inc
+;include libs/kernel32.inc
+includelib libs/user32.lib
+;includelib libs/kernel32.lib
 
 .data
 	str1 byte "Encontrado na posicao:",10,13
@@ -7,6 +12,9 @@ INCLUDE libs/Irvine32.inc
 	vn SDWORD 18,20,35,-12,66,4,-7,100,15
 .code
 main PROC
+
+
+
 LookForKey:
 	mov esi, $
 	mov ecx, 100

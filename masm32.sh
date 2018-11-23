@@ -13,4 +13,5 @@ echo "Executing..."
 echo ""
 mv ./$1.exe /tmp/$1.exe
 wineconsole /tmp/$1.exe
+cp *.ro /tmp/
 rm $1.*
