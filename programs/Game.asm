@@ -2,25 +2,39 @@ include libs/Irvine32.inc
 include libs/Player1.inc
 include libs/Player2.inc
 include libs/Menu.inc
-;include libs/Singleplayer.inc
-;include libs/Multiplayer.inc
+includelib libs/winmm.lib
+
+PlaySound PROTO,
+        pszSound:PTR BYTE, 
+        hmod:DWORD, 
+        fdwSound:DWORD
 
 .data
+	;sound cfgs
+	deviceConnect BYTE "DeviceConnect",0
+	SND_ALIAS    DWORD 00010000h
+	SND_RESOURCE DWORD 00040005h
+	SND_FILENAME DWORD 00020000h
+	SND_ASYNC DWORD 0001h
+	file BYTE "take.wav",0
+	;visual cfg
 	direita byte ">",0
 	esquerda byte "<",0
 	cima byte "^",0
 	baixo byte "v",0
-	score word 0
-	mode word 0
+	score word 0	
 	; Game configs
 	max_x = 80
-	max_y = 26
+	max_y = 24
 	field byte max_x dup (max_y dup (0))
 	singleplayer_speed word 250
 	multiplayer_speed word 200
 
 .code
 main PROC
+	mov eax, SND_FILENAME
+	or eax, SND_ASYNC
+    INVOKE PlaySound, OFFSET file, NULL, eax
 	call menu
 	exit
 main ENDP
@@ -82,5 +96,6 @@ reset PROC
 	mov p1_dir,0 
 	mov p1_status, 1
 	mov score, 0
+	mov ecx, 1280
 reset ENDP
 end main
